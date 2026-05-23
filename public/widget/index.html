@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AbuEin Pulse v1.0</title>
+  <style>
+    :root {
+      --pulse-bg: #f5f5f5;
+      --pulse-card-bg: #ffffff;
+      --pulse-text: #374151;
+      --pulse-muted: #6b7280;
+      --pulse-border: #d1d5db;
+      --pulse-success: #166534;
+      --pulse-error: #b91c1c;
+      --pulse-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --pulse-radius: 16px;
+      --pulse-button-radius: 9999px;
+      --pulse-max-width: 520px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+      color: var(--pulse-text);
+    }
+
+    .pulse-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pulse-card {
+      width: min(100%, var(--pulse-max-width));
+      background: var(--pulse-card-bg);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--pulse-radius);
+      box-shadow: var(--pulse-shadow);
+      padding: 24px;
+    }
+
+    .pulse-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .pulse-question {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--pulse-text);
+    }
+
+    .pulse-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .pulse-button {
+      appearance: none;
+      border: 1px solid var(--pulse-border);
+      background: #ffffff;
+      color: var(--pulse-text);
+      border-radius: var(--pulse-button-radius);
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      min-width: 92px;
+    }
+
+    .pulse-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: #9ca3af;
+    }
+
+    .pulse-button:focus-visible {
+      outline: 3px solid rgba(59, 130, 246, 0.35);
+      outline-offset: 2px;
+    }
+
+    .pulse-button[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .pulse-status {
+      display: none;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .pulse-status--success {
+      color: var(--pulse-success);
+    }
+
+    .pulse-status--error {
+      color: var(--pulse-error);
+    }
+
+    .pulse-status--skipped {
+      color: var(--pulse-muted);
+    }
+
+    .pulse-status--pending {
+      color: var(--pulse-muted);
+    }
+
+    .pulse-powered {
+      display: inline-block;
+      margin-top: 14px;
+      color: #9ca3af;
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .pulse-powered:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .pulse-card {
+        padding: 20px 16px;
+      }
+
+      .pulse-button {
+        width: 100%;
+      }
+
+      .pulse-buttons {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="pulse-wrap">
+    <section
+      id="abuein-pulse"
+      class="pulse-card"
+      aria-labelledby="pulse-question"
+    >
+      <div class="pulse-row">
+        <p id="pulse-question" class="pulse-question">
+          Was this page helpful?
+        </p>
+
+        <div id="pulse-buttons" class="pulse-buttons">
+          <button
+            id="pulse-yes"
+            class="pulse-button"
+            type="button"
+            aria-label="Submit yes feedback"
+          >
+            Yes
+          </button>
+
+          <button
+            id="pulse-no"
+            class="pulse-button"
+            type="button"
+            aria-label="Submit no feedback"
+          >
+            No
+          </button>
+        </div>
+
+        <p
+          id="pulse-pending"
+          class="pulse-status pulse-status--pending"
+          aria-live="polite"
+          role="status"
+        >
+          Sending feedback...
+        </p>
+
+        <p
+          id="pulse-thanks"
+          class="pulse-status pulse-status--success"
+          aria-live="polite"
+          role="status"
+        >
+          Thanks for your feedback!
+        </p>
+
+        <p
+          id="pulse-error"
+          class="pulse-status pulse-status--error"
+          aria-live="polite"
+          role="status"
+        >
+          We could not send your feedback right now.
+        </p>
+
+        <p
+          id="pulse-skipped"
+          class="pulse-status pulse-status--skipped"
+          aria-live="polite"
+          role="status"
+        >
+          Feedback not sent in local/static preview.
+        </p>
+      </div>
+
+      <a
+        id="pulse-powered-by"
+        class="pulse-powered"
+        href="https://abuein.dev/"
+        ping="http://127.0.0.1:3000/api/track-attribution"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Powered by AbuEin Pulse
+      </a>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * AbuEin Pulse v1.0
+     * Lightweight feedback widget by AbuEin Technologies
+     * https://abuein.dev
+     */
+
+    const AbuEinPulseConfig = {
+      widgetName: 'AbuEin Pulse v1.0',
+      endpoint: '/api/feedback',
+      attributionEndpoint: '/api/track-attribution',
+      pageQuestion: 'Was this page helpful?',
+      successMessage: 'Thanks for your feedback!',
+      errorMessage: 'We could not send your feedback right now.',
+      skippedMessage: 'Feedback not sent in local/static preview.',
+      pendingMessage: 'Sending feedback...',
+      skipTelemetryInLocalPreview: false, // True in prodcution
+      localHosts: ['127.0.0.1', 'localhost'],
+      debug: true,
+      useBeaconFallback: false // Strictly honest server-confirmed success only
+    };
+
+    const AbuEinPulse = {
+      config: AbuEinPulseConfig,
+      isSubmitting: false,
+      hasSubmitted: false,
+
+      init(userConfig = {}) {
+        this.config = { ...this.config, ...userConfig };
+
+        this.root = document.getElementById('abuein-pulse');
+        this.question = document.getElementById('pulse-question');
+        this.buttons = document.getElementById('pulse-buttons');
+        this.yesButton = document.getElementById('pulse-yes');
+        this.noButton = document.getElementById('pulse-no');
+        this.pending = document.getElementById('pulse-pending');
+        this.thanks = document.getElementById('pulse-thanks');
+        this.error = document.getElementById('pulse-error');
+        this.skipped = document.getElementById('pulse-skipped');
+        this.poweredByLink = document.getElementById('pulse-powered-by');
+
+        if (!this.root) {
+          console.warn(`${this.config.widgetName}: root element not found.`);
+          return;
+        }
+
+        this.applyConfigToUi();
+        this.bindEvents();
+        this.showState('idle');
+
+        if (this.shouldSkipTelemetry()) {
+          this.disableLocalTrackingFeatures();
+        }
+      },
+
+      applyConfigToUi() {
+        if (this.question) this.question.textContent = this.config.pageQuestion;
+        if (this.pending) this.pending.textContent = this.config.pendingMessage;
+        if (this.thanks) this.thanks.textContent = this.config.successMessage;
+        if (this.error) this.error.textContent = this.config.errorMessage;
+        if (this.skipped) this.skipped.textContent = this.config.skippedMessage;
+
+        if (this.poweredByLink && this.config.attributionEndpoint) {
+          this.poweredByLink.setAttribute('ping', this.config.attributionEndpoint);
+        }
+      },
+
+      bindEvents() {
+        if (this.yesButton) {
+          this.yesButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.submit('yes');
+          });
+        }
+
+        if (this.noButton) {
+          this.noButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.submit('no');
+          });
+        }
+
+        const parentForm = this.root ? this.root.closest('form') : null;
+  if (parentForm) {
+    parentForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+  }
+      },
+
+      isLocalPreview() {
+        return (
+          this.config.localHosts.includes(location.hostname) ||
+          location.protocol === 'file:'
+        );
+      },
+
+      shouldSkipTelemetry() {
+        return this.config.skipTelemetryInLocalPreview && this.isLocalPreview();
+      },
+
+      disableLocalTrackingFeatures() {
+        if (this.poweredByLink) {
+          this.poweredByLink.removeAttribute('ping');
+        }
+
+        if (this.config.debug) {
+          console.info(`${this.config.widgetName}: skipping telemetry in local/static preview.`);
+        }
+      },
+
+      setButtonsDisabled(disabled) {
+        if (this.yesButton) this.yesButton.disabled = disabled;
+        if (this.noButton) this.noButton.disabled = disabled;
+      },
+
+      showState(state) {
+        const isIdle = state === 'idle';
+
+        if (this.question) this.question.style.display = isIdle ? 'block' : 'none';
+        if (this.buttons) this.buttons.style.display = isIdle ? 'flex' : 'none';
+        if (this.pending) this.pending.style.display = state === 'pending' ? 'block' : 'none';
+        if (this.thanks) this.thanks.style.display = state === 'success' ? 'block' : 'none';
+        if (this.error) this.error.style.display = state === 'error' ? 'block' : 'none';
+        if (this.skipped) this.skipped.style.display = state === 'skipped' ? 'block' : 'none';
+      },
+
+      buildPayload(response) {
+        return {
+          response,
+          helpful: response === 'yes',
+          page: window.location.pathname,
+          url: window.location.href,
+          title: document.title,
+          timestamp: new Date().toISOString(),
+          widget: this.config.widgetName
+        };
+      },
+
+      async sendWithFetch(json) {
+        const response = await fetch(this.config.endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: json,
+          keepalive: true
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        return true;
+      },
+
+      sendWithBeacon(json) {
+        if (!navigator.sendBeacon) {
+          return false;
+        }
+
+        const blob = new Blob([json], { type: 'application/json' });
+        return navigator.sendBeacon(this.config.endpoint, blob);
+      },
+
+      async submit(response) {
+        if (this.isSubmitting || this.hasSubmitted) {
+          return;
+        }
+
+        this.isSubmitting = true;
+        this.setButtonsDisabled(true);
+        this.showState('pending');
+
+         console.log('hostname:', location.hostname);
+  console.log('protocol:', location.protocol);
+  console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
+
+        const payload = this.buildPayload(response);
+        const json = JSON.stringify(payload);
+
+        if (this.shouldSkipTelemetry()) {
+          this.hasSubmitted = true;
+          this.isSubmitting = false;
+          this.showState('skipped');
+          return;
+        }
+
+        try {
+          await this.sendWithFetch(json);
+          this.hasSubmitted = true;
+          this.showState('success');
+        } catch (fetchError) {
+          if (this.config.debug) {
+  if (this.config.useBeaconFallback) {
+    console.warn(`${this.config.widgetName}: fetch failed, attempting beacon fallback.`, fetchError);
+  } else {
+    console.warn(`${this.config.widgetName}: fetch failed and beacon fallback is disabled.`, fetchError);
+  }
+}
+
+          if (this.config.useBeaconFallback) {
+            const beaconQueued = this.sendWithBeacon(json);
+
+            if (beaconQueued) {
+              this.hasSubmitted = true;
+              this.showState('success');
+              return;
+            }
+          }
+
+          console.error(`${this.config.widgetName}: feedback submission failed.`, fetchError);
+          this.setButtonsDisabled(false);
+          this.showState('error');
+        } finally {
+          this.isSubmitting = false;
+        }
+      }
+    };
+
+    AbuEinPulse.init({
+      endpoint: 'http://127.0.0.1:3000/api/feedback',
+      attributionEndpoint: 'http://127.0.0.1:3000/api/track-attribution'
+    });
+  </script>
+</body>
+</html>

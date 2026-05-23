@@ -1,0 +1,24 @@
+{
+  "name": "abuein-pulse-logger",
+  "version": "1.0.0",
+  "description": "Small Node.js logger server for AbuEin Pulse feedback and attribution requests",
+  "main": ".\\src\\server.mjs",
+  "scripts": {
+    "start": "node ./src/server.mjs",
+    "dev": "node ./src/server.mjs"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "logging",
+    "feedback",
+    "analytics",
+    "beacon"
+  ],
+  "author": "AbuEin Technologies",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "type": "module"
+}
