@@ -1,4 +1,10 @@
-import { ALLOWED_ORIGINS, IS_DEV } from '../config.mjs';
+import {
+  ALLOWED_ORIGINS,
+  IS_DEV,
+  CORS_ALLOWED_METHODS,
+  CORS_ALLOWED_HEADERS,
+  LOG_VERBOSE
+} from '../config.mjs';
 
 export function corsMiddleware(req, res, next) {
   const origin = req.get('origin');
@@ -7,16 +13,19 @@ export function corsMiddleware(req, res, next) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Vary', 'Origin');
   } else if (origin && !IS_DEV) {
-    console.warn(`[cors] blocked origin: ${origin} for ${req.method} ${req.originalUrl}`);
+    if (LOG_VERBOSE) {
+      console.warn(`[cors] blocked origin: ${origin} for ${req.method} ${req.originalUrl}`);
+    }
     return res.status(403).json({ error: 'Origin not allowed' });
   } else if (IS_DEV) {
     res.header('Access-Control-Allow-Origin', '*');
-    console.log('Running in development mode');
-    console.debug(`[cors] not blocked origin: ${origin} for ${req.method} ${req.originalUrl}`);
+    if (LOG_VERBOSE) {
+      console.debug(`[cors] dev allow origin: ${origin || '(none)'} for ${req.method} ${req.originalUrl}`);
+    }
   }
 
-  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', CORS_ALLOWED_METHODS);
+  res.header('Access-Control-Allow-Headers', CORS_ALLOWED_HEADERS);
 
   if (req.method === 'OPTIONS') {
     return res.sendStatus(204);
