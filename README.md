@@ -34,11 +34,17 @@ A small Node.js + Express server that accepts AbuEin Pulse widget requests and w
 
 ## Logs
 
-By default, logs are written to:
+By default, logs are written to your home directory:
 
 ```text
-~/abuein-pulse-logs/feedback.log
-~/abuein-pulse-logs/track-attribution.log
+~/abuein-pulse-logs/
+```
+
+Files are rotated by date and look like:
+
+```text
+feedback-YYYY-MM-DD.log
+track-attribution-YYYY-MM-DD.log
 ```
 
 The log directory is created automatically when the server starts.
