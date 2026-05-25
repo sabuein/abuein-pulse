@@ -1,4 +1,27 @@
+"use strict";
+
+import { LOG_INCLUDE_HEADERS } from '../config.mjs';
 import { getBodyDetails } from './request-body.mjs';
+
+const SAFE_HEADER_NAMES = [
+  'content-type',
+  'content-length',
+  'origin',
+  'referer',
+  'user-agent',
+  'accept',
+  'sec-fetch-site',
+  'sec-fetch-mode',
+  'sec-fetch-dest'
+];
+
+function pickSafeHeaders(headers = {}) {
+  return Object.fromEntries(
+    SAFE_HEADER_NAMES
+      .filter(name => headers[name] != null)
+      .map(name => [name, headers[name]])
+  );
+}
 
 export function buildNormalizedData(kind, parsedBody) {
   if (!parsedBody || typeof parsedBody !== 'object') {
@@ -44,7 +67,7 @@ export function buildRequestSnapshot(req, kind) {
       secFetchMode: req.get('sec-fetch-mode') || '',
       secFetchDest: req.get('sec-fetch-dest') || '',
       query: req.query || {},
-      headers: req.headers,
+      headers: LOG_INCLUDE_HEADERS ? req.headers : pickSafeHeaders(req.headers),
       body
     },
     normalized: buildNormalizedData(kind, body.parsed)
