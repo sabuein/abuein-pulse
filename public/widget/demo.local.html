@@ -14,10 +14,6 @@
       data-endpoint="http://127.0.0.1:3000/api/feedback"
       data-attribution-endpoint="http://127.0.0.1:3000/api/track-attribution" data-debug="true"
       data-skip-telemetry-in-local-preview="false">
-      <p class="pulse-demo-note" role="note">
-        Local demo page — expects the AbuEin Pulse logger server at
-        <code>http://127.0.0.1:3000</code>.
-      </p>
       <div class="pulse-row">
         <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
 
@@ -54,7 +50,10 @@
       </a>
     </section>
   </main>
-
+  <p class="pulse-demo-note" role="note">
+    Local demo page — expects the AbuEin Pulse logger server at
+    <code>http://127.0.0.1:3000</code>.
+  </p>
   <script type="module" src="./abuein-pulse.js"></script>
 </body>
 

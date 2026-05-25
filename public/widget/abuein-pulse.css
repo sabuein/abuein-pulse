@@ -43,6 +43,14 @@ body {
   padding: 24px;
 }
 
+.pulse-demo-note {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--pulse-muted);
+  text-align: center;
+}
+
 .pulse-row {
   display: flex;
   flex-direction: column;
