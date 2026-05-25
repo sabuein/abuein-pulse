@@ -1,3 +1,15 @@
+"use strict";
+
+/*
+
+Main possible future improvements:
+
+1. extract repeated DOM selectors into a helper if the widget grows
+2. make init() resilient if called after a completed submission and you want reset behavior
+3. consider exposing window.AbuEinPulse = AbuEinPulse if you want non-module use later
+
+*/
+
 const DEFAULT_CONFIG = {
     widgetName: 'AbuEin Pulse v1.0',
     endpoint: '/api/feedback',
