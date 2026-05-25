@@ -1,3 +1,5 @@
+"use strict";
+
 import express from 'express';
 import { corsMiddleware } from './middleware/cors.mjs';
 import feedbackRoutes from './routes/feedback.mjs';

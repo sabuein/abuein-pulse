@@ -1,3 +1,5 @@
+"use strict";
+
 import app from './app.mjs';
 import { PORT, FEEDBACK_LOG_FILE, ATTRIBUTION_LOG_FILE } from './config.mjs';
 

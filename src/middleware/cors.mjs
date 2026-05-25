@@ -1,3 +1,5 @@
+"use strict";
+
 import {
   ALLOWED_ORIGINS,
   IS_DEV,

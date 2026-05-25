@@ -1,3 +1,5 @@
+"use strict";
+
 import { Router } from 'express';
 import { FEEDBACK_LOG_FILE, ATTRIBUTION_LOG_FILE } from '../config.mjs';
 
