@@ -17,10 +17,10 @@ router.post(
     try {
       const entry = buildRequestSnapshot(req, 'track-attribution');
       await appendLog(ATTRIBUTION_LOG_FILE, 'track-attribution', entry);
-      res.sendStatus(204);
+      return res.sendStatus(204);
     } catch (error) {
       console.error('[track-attribution] Failed to persist request:', error);
-      res.status(500).json({ error: 'Failed to write attribution log' });
+      return res.status(500).json({ error: 'Failed to write attribution log' });
     }
   });
 
