@@ -22,10 +22,10 @@ router.post('/api/feedback', rateLimit, async (req, res) => {
   try {
     const entry = buildRequestSnapshot(req, 'feedback');
     await appendLog(FEEDBACK_LOG_FILE, 'feedback', entry);
-    res.sendStatus(204);
+    return res.sendStatus(204);
   } catch (error) {
     console.error('[feedback] Failed to persist request:', error);
-    res.status(500).json({ error: 'Failed to write feedback log' });
+    return res.status(500).json({ error: 'Failed to write feedback log' });
   }
 });
 
