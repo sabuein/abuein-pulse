@@ -9,7 +9,7 @@ import healthRoutes from './routes/health.mjs';
 const app = express();
 
 app.use(corsMiddleware);
-app.use(express.json({ limit: '100kb' }));
+app.use(express.json({ type: ['application/json', 'application/*+json'], limit: '100kb' }));
 app.use(express.text({ type: ['text/plain', 'application/x-www-form-urlencoded'], limit: '100kb' }));
 
 app.use(feedbackRoutes);
