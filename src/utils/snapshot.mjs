@@ -15,6 +15,8 @@ const SAFE_HEADER_NAMES = [
   'sec-fetch-dest'
 ];
 
+// Potential future improvement: optionally normalize ip behind reverse proxies if we ever deploy behind one.
+
 function pickSafeHeaders(headers = {}) {
   return Object.fromEntries(
     SAFE_HEADER_NAMES
