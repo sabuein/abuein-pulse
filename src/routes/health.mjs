@@ -1,13 +1,11 @@
 "use strict";
 
 import { Router } from 'express';
-import { createRateLimit } from '../middleware/rate-limit.mjs';
 import { FEEDBACK_LOG_FILE, ATTRIBUTION_LOG_FILE, IS_PROD } from '../config.mjs';
 
 const router = Router();
-const rateLimit = createRateLimit({ windowMs: 60_000, maxRequests: 20 });
 
-router.get('/health', rateLimit, (req, res) => {
+router.get('/health', (req, res) => {
   const payload = {
     ok: true,
     service: 'AbuEin Pulse logger',
