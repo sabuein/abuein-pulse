@@ -32,6 +32,15 @@ A small Node.js + Express server that accepts AbuEin Pulse widget requests and w
         └── validate-feedback.mjs
 ```
 
+## Widget files
+
+The widget frontend is split into reusable parts:
+
+- `public/widget/index.html` — reusable widget example using relative endpoints
+- `public/widget/demo.local.html` — local demo page configured for `http://127.0.0.1:3000`
+- `public/widget/abuein-pulse.js` — shared widget logic
+- `public/widget/abuein-pulse.css` — shared widget styles
+
 ## Logs
 
 By default, logs are written to your home directory:
