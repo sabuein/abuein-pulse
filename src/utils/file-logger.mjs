@@ -1,3 +1,5 @@
+"use strict";
+
 import fs from 'node:fs/promises';
 import { LOG_DIR, LOG_VERBOSE } from '../config.mjs';
 
