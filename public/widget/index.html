@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -158,83 +159,44 @@
     }
   </style>
 </head>
+
 <body>
   <main class="pulse-wrap">
-    <section
-      id="abuein-pulse"
-      class="pulse-card"
-      aria-labelledby="pulse-question"
-    >
+    <section id="abuein-pulse" class="pulse-card" aria-labelledby="pulse-question">
       <div class="pulse-row">
         <p id="pulse-question" class="pulse-question">
           Was this page helpful?
         </p>
 
         <div id="pulse-buttons" class="pulse-buttons">
-          <button
-            id="pulse-yes"
-            class="pulse-button"
-            type="button"
-            aria-label="Submit yes feedback"
-          >
+          <button id="pulse-yes" class="pulse-button" type="button" aria-label="Submit yes feedback">
             Yes
           </button>
 
-          <button
-            id="pulse-no"
-            class="pulse-button"
-            type="button"
-            aria-label="Submit no feedback"
-          >
+          <button id="pulse-no" class="pulse-button" type="button" aria-label="Submit no feedback">
             No
           </button>
         </div>
 
-        <p
-          id="pulse-pending"
-          class="pulse-status pulse-status--pending"
-          aria-live="polite"
-          role="status"
-        >
+        <p id="pulse-pending" class="pulse-status pulse-status--pending" aria-live="polite" role="status">
           Sending feedback...
         </p>
 
-        <p
-          id="pulse-thanks"
-          class="pulse-status pulse-status--success"
-          aria-live="polite"
-          role="status"
-        >
+        <p id="pulse-thanks" class="pulse-status pulse-status--success" aria-live="polite" role="status">
           Thanks for your feedback!
         </p>
 
-        <p
-          id="pulse-error"
-          class="pulse-status pulse-status--error"
-          aria-live="polite"
-          role="status"
-        >
+        <p id="pulse-error" class="pulse-status pulse-status--error" aria-live="polite" role="status">
           We could not send your feedback right now.
         </p>
 
-        <p
-          id="pulse-skipped"
-          class="pulse-status pulse-status--skipped"
-          aria-live="polite"
-          role="status"
-        >
+        <p id="pulse-skipped" class="pulse-status pulse-status--skipped" aria-live="polite" role="status">
           Feedback not sent in local/static preview.
         </p>
       </div>
 
-      <a
-        id="pulse-powered-by"
-        class="pulse-powered"
-        href="https://abuein.dev/"
-        ping="http://127.0.0.1:3000/api/track-attribution"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a id="pulse-powered-by" class="pulse-powered" href="https://abuein.dev/"
+        ping="http://127.0.0.1:3000/api/track-attribution" target="_blank" rel="noopener noreferrer">
         Powered by AbuEin Pulse
       </a>
     </section>
@@ -325,11 +287,11 @@
         }
 
         const parentForm = this.root ? this.root.closest('form') : null;
-  if (parentForm) {
-    parentForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-    });
-  }
+        if (parentForm) {
+          parentForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+          });
+        }
       },
 
       isLocalPreview() {
@@ -416,9 +378,9 @@
         this.setButtonsDisabled(true);
         this.showState('pending');
 
-         console.log('hostname:', location.hostname);
-  console.log('protocol:', location.protocol);
-  console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
+        console.log('hostname:', location.hostname);
+        console.log('protocol:', location.protocol);
+        console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
 
         const payload = this.buildPayload(response);
         const json = JSON.stringify(payload);
@@ -436,12 +398,18 @@
           this.showState('success');
         } catch (fetchError) {
           if (this.config.debug) {
-  if (this.config.useBeaconFallback) {
-    console.warn(`${this.config.widgetName}: fetch failed, attempting beacon fallback.`, fetchError);
-  } else {
-    console.warn(`${this.config.widgetName}: fetch failed and beacon fallback is disabled.`, fetchError);
-  }
-}
+            if (this.config.useBeaconFallback) {
+              console.warn(
+                `${this.config.widgetName}: fetch failed, attempting beacon fallback.`,
+                fetchError
+              );
+            } else {
+              console.warn(
+                `${this.config.widgetName}: fetch failed and beacon fallback is disabled.`,
+                fetchError
+              );
+            }
+          }
 
           if (this.config.useBeaconFallback) {
             const beaconQueued = this.sendWithBeacon(json);
@@ -453,7 +421,10 @@
             }
           }
 
-          console.error(`${this.config.widgetName}: feedback submission failed.`, fetchError);
+          if (this.config.debug) {
+            console.error(`${this.config.widgetName}: feedback submission failed.`, fetchError);
+          }
+
           this.setButtonsDisabled(false);
           this.showState('error');
         } finally {
@@ -468,4 +439,5 @@
     });
   </script>
 </body>
+
 </html>
