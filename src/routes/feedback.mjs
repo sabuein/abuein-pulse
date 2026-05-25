@@ -1,14 +1,16 @@
 "use strict";
 
 import { Router } from 'express';
+import { createRateLimit } from '../middleware/rate-limit.mjs';
 import { FEEDBACK_LOG_FILE } from '../config.mjs';
 import { buildRequestSnapshot } from '../utils/snapshot.mjs';
 import { appendLog } from '../utils/file-logger.mjs';
 import { validateFeedbackPayload } from '../utils/validate-feedback.mjs';
 
 const router = Router();
+const rateLimit = createRateLimit({ windowMs: 60_000, maxRequests: 20 });
 
-router.post('/api/feedback', async (req, res) => {
+router.post('/api/feedback', rateLimit, async (req, res) => {
   const validation = validateFeedbackPayload(req.body);
   if (!validation.ok) {
     return res.status(400).json({

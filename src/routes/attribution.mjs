@@ -1,14 +1,17 @@
 "use strict";
 
 import express, { Router } from 'express';
+import { createRateLimit } from '../middleware/rate-limit.mjs';
 import { ATTRIBUTION_LOG_FILE } from '../config.mjs';
 import { buildRequestSnapshot } from '../utils/snapshot.mjs';
 import { appendLog } from '../utils/file-logger.mjs';
 
 const router = Router();
+const rateLimit = createRateLimit({ windowMs: 60_000, maxRequests: 20 });
 
 router.post(
   '/api/track-attribution',
+  rateLimit,
   express.text({ type: '*/*', limit: '100kb' }),
   async (req, res) => {
     try {
