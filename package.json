@@ -1,12 +1,13 @@
 {
   "name": "abuein-pulse-logger",
   "version": "1.0.0",
-  "description": "Small Node.js logger server for AbuEin Pulse feedback and attribution requests",
+  "description": "Small, focused logger app with a clean reusable/demo widget split.",
   "main": "./src/server.mjs",
   "type": "module",
   "scripts": {
     "start": "node ./src/server.mjs",
-    "dev": "node --watch ./src/server.mjs"
+    "dev": "node --watch ./src/server.mjs",
+    "format": "npx prettier --write ."
   },
   "keywords": [
     "nodejs",
@@ -20,5 +21,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }
