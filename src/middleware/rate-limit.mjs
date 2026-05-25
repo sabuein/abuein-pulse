@@ -3,6 +3,7 @@
 const buckets = new Map();
 
 // TODO: add periodic pruning.
+// Consider pruning stale entries in the in-memory rate limiter if uptime/traffic grows.
 
 export function createRateLimit({
     windowMs = 60_000,
