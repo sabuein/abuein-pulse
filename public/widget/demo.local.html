@@ -17,6 +17,11 @@
       <div class="pulse-row">
         <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
 
+        <p class="pulse-demo-note" role="note">
+          Demo mode: this page sends feedback to
+          <code>http://127.0.0.1:3000</code>.
+        </p>
+
         <div id="pulse-buttons" class="pulse-buttons">
           <button id="pulse-yes" class="pulse-button" type="button" aria-label="Submit yes feedback">
             Yes
@@ -50,10 +55,6 @@
       </a>
     </section>
   </main>
-  <p class="pulse-demo-note" role="note">
-    Local demo page — expects the AbuEin Pulse logger server at
-    <code>http://127.0.0.1:3000</code>.
-  </p>
   <script type="module" src="./abuein-pulse.js"></script>
 </body>
 

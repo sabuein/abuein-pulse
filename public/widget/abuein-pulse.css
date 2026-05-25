@@ -45,6 +45,10 @@ body {
 
 .pulse-demo-note {
   margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--pulse-border);
+  border-radius: 10px;
+  background: #f9fafb;
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--pulse-muted);
