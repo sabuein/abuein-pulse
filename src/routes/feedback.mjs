@@ -4,10 +4,19 @@ import { Router } from 'express';
 import { FEEDBACK_LOG_FILE } from '../config.mjs';
 import { buildRequestSnapshot } from '../utils/snapshot.mjs';
 import { appendLog } from '../utils/file-logger.mjs';
+import { validateFeedbackPayload } from '../utils/validate-feedback.mjs';
 
 const router = Router();
 
 router.post('/api/feedback', async (req, res) => {
+  const validation = validateFeedbackPayload(req.body);
+  if (!validation.ok) {
+    return res.status(400).json({
+      error: 'Invalid feedback payload',
+      details: validation.errors
+    });
+  }
+
   try {
     const entry = buildRequestSnapshot(req, 'feedback');
     await appendLog(FEEDBACK_LOG_FILE, 'feedback', entry);
