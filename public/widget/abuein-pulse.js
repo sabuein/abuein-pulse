@@ -11,23 +11,23 @@ Main possible future improvements:
 */
 
 const DEFAULT_CONFIG = {
-    widgetName: 'AbuEin Pulse v1.0',
-    endpoint: '/api/feedback',
-    attributionEndpoint: '/api/track-attribution',
-    pageQuestion: 'Was this page helpful?',
-    successMessage: 'Thanks for your feedback!',
-    errorMessage: 'We could not send your feedback right now.',
-    skippedMessage: 'Feedback not sent in local/static preview.',
-    pendingMessage: 'Sending feedback...',
+    widgetName: "AbuEin Pulse v1.0",
+    endpoint: "/api/feedback",
+    attributionEndpoint: "/api/track-attribution",
+    pageQuestion: "Was this page helpful?",
+    successMessage: "Thanks for your feedback!",
+    errorMessage: "We could not send your feedback right now.",
+    skippedMessage: "Feedback not sent in local/static preview.",
+    pendingMessage: "Sending feedback...",
     skipTelemetryInLocalPreview: false,
-    localHosts: ['127.0.0.1', 'localhost'],
+    localHosts: ["127.0.0.1", "localhost"],
     debug: false,
-    useBeaconFallback: false
+    useBeaconFallback: false,
 };
 
 function parseBoolean(value, fallback = false) {
-    if (value == null || value === '') return fallback;
-    return String(value).toLowerCase() === 'true';
+    if (value == null || value === "") return fallback;
+    return String(value).toLowerCase() === "true";
 }
 
 function readConfigFromDataset(root) {
@@ -40,7 +40,7 @@ function readConfigFromDataset(root) {
         skipTelemetryInLocalPreview: parseBoolean(
             dataset.skipTelemetryInLocalPreview,
             DEFAULT_CONFIG.skipTelemetryInLocalPreview
-        )
+        ),
     };
 }
 
@@ -51,7 +51,7 @@ const AbuEinPulse = {
     isBound: false,
 
     init(userConfig = {}) {
-        this.root = document.getElementById('abuein-pulse');
+        this.root = document.getElementById("abuein-pulse");
 
         if (!this.root) {
             console.warn(`${this.config.widgetName}: root element not found.`);
@@ -61,15 +61,15 @@ const AbuEinPulse = {
         const datasetConfig = readConfigFromDataset(this.root);
         this.config = { ...DEFAULT_CONFIG, ...datasetConfig, ...userConfig };
 
-        this.question = document.getElementById('pulse-question');
-        this.buttons = document.getElementById('pulse-buttons');
-        this.yesButton = document.getElementById('pulse-yes');
-        this.noButton = document.getElementById('pulse-no');
-        this.pending = document.getElementById('pulse-pending');
-        this.thanks = document.getElementById('pulse-thanks');
-        this.error = document.getElementById('pulse-error');
-        this.skipped = document.getElementById('pulse-skipped');
-        this.poweredByLink = document.getElementById('pulse-powered-by');
+        this.question = document.getElementById("pulse-question");
+        this.buttons = document.getElementById("pulse-buttons");
+        this.yesButton = document.getElementById("pulse-yes");
+        this.noButton = document.getElementById("pulse-no");
+        this.pending = document.getElementById("pulse-pending");
+        this.thanks = document.getElementById("pulse-thanks");
+        this.error = document.getElementById("pulse-error");
+        this.skipped = document.getElementById("pulse-skipped");
+        this.poweredByLink = document.getElementById("pulse-powered-by");
 
         this.applyConfigToUi();
 
@@ -78,12 +78,12 @@ const AbuEinPulse = {
             this.isBound = true;
         }
 
-        this.showState('idle');
+        this.showState("idle");
 
         if (this.shouldSkipTelemetry()) {
             this.disableLocalTrackingFeatures();
         } else if (this.poweredByLink && this.config.attributionEndpoint) {
-            this.poweredByLink.setAttribute('ping', this.config.attributionEndpoint);
+            this.poweredByLink.setAttribute("ping", this.config.attributionEndpoint);
         }
     },
 
@@ -97,34 +97,31 @@ const AbuEinPulse = {
 
     bindEvents() {
         if (this.yesButton) {
-            this.yesButton.addEventListener('click', (event) => {
+            this.yesButton.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                this.submit('yes');
+                this.submit("yes");
             });
         }
 
         if (this.noButton) {
-            this.noButton.addEventListener('click', (event) => {
+            this.noButton.addEventListener("click", (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                this.submit('no');
+                this.submit("no");
             });
         }
 
-        const parentForm = this.root ? this.root.closest('form') : null;
+        const parentForm = this.root ? this.root.closest("form") : null;
         if (parentForm) {
-            parentForm.addEventListener('submit', (event) => {
+            parentForm.addEventListener("submit", (event) => {
                 event.preventDefault();
             });
         }
     },
 
     isLocalPreview() {
-        return (
-            this.config.localHosts.includes(location.hostname) ||
-            location.protocol === 'file:'
-        );
+        return this.config.localHosts.includes(location.hostname) || location.protocol === "file:";
     },
 
     shouldSkipTelemetry() {
@@ -133,7 +130,7 @@ const AbuEinPulse = {
 
     disableLocalTrackingFeatures() {
         if (this.poweredByLink) {
-            this.poweredByLink.removeAttribute('ping');
+            this.poweredByLink.removeAttribute("ping");
         }
 
         if (this.config.debug) {
@@ -147,36 +144,36 @@ const AbuEinPulse = {
     },
 
     showState(state) {
-        const isIdle = state === 'idle';
+        const isIdle = state === "idle";
 
-        if (this.question) this.question.style.display = isIdle ? 'block' : 'none';
-        if (this.buttons) this.buttons.style.display = isIdle ? 'flex' : 'none';
-        if (this.pending) this.pending.style.display = state === 'pending' ? 'block' : 'none';
-        if (this.thanks) this.thanks.style.display = state === 'success' ? 'block' : 'none';
-        if (this.error) this.error.style.display = state === 'error' ? 'block' : 'none';
-        if (this.skipped) this.skipped.style.display = state === 'skipped' ? 'block' : 'none';
+        if (this.question) this.question.style.display = isIdle ? "block" : "none";
+        if (this.buttons) this.buttons.style.display = isIdle ? "flex" : "none";
+        if (this.pending) this.pending.style.display = state === "pending" ? "block" : "none";
+        if (this.thanks) this.thanks.style.display = state === "success" ? "block" : "none";
+        if (this.error) this.error.style.display = state === "error" ? "block" : "none";
+        if (this.skipped) this.skipped.style.display = state === "skipped" ? "block" : "none";
     },
 
     buildPayload(response) {
         return {
             response,
-            helpful: response === 'yes',
+            helpful: response === "yes",
             page: window.location.pathname,
             url: window.location.href,
             title: document.title,
             timestamp: new Date().toISOString(),
-            widget: this.config.widgetName
+            widget: this.config.widgetName,
         };
     },
 
     async sendWithFetch(json) {
         const response = await fetch(this.config.endpoint, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
             body: json,
-            keepalive: true
+            keepalive: true,
         });
 
         if (!response.ok) {
@@ -191,7 +188,7 @@ const AbuEinPulse = {
             return false;
         }
 
-        const blob = new Blob([json], { type: 'application/json' });
+        const blob = new Blob([json], { type: "application/json" });
         return navigator.sendBeacon(this.config.endpoint, blob);
     },
 
@@ -202,12 +199,12 @@ const AbuEinPulse = {
 
         this.isSubmitting = true;
         this.setButtonsDisabled(true);
-        this.showState('pending');
+        this.showState("pending");
 
         if (this.config.debug) {
-            console.log('hostname:', location.hostname);
-            console.log('protocol:', location.protocol);
-            console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
+            console.log("hostname:", location.hostname);
+            console.log("protocol:", location.protocol);
+            console.log("shouldSkipTelemetry:", this.shouldSkipTelemetry());
         }
 
         const payload = this.buildPayload(response);
@@ -216,20 +213,26 @@ const AbuEinPulse = {
         if (this.shouldSkipTelemetry()) {
             this.hasSubmitted = true;
             this.isSubmitting = false;
-            this.showState('skipped');
+            this.showState("skipped");
             return;
         }
 
         try {
             await this.sendWithFetch(json);
             this.hasSubmitted = true;
-            this.showState('success');
+            this.showState("success");
         } catch (fetchError) {
             if (this.config.debug) {
                 if (this.config.useBeaconFallback) {
-                    console.warn(`${this.config.widgetName}: fetch failed, attempting beacon fallback.`, fetchError);
+                    console.warn(
+                        `${this.config.widgetName}: fetch failed, attempting beacon fallback.`,
+                        fetchError
+                    );
                 } else {
-                    console.warn(`${this.config.widgetName}: fetch failed and beacon fallback is disabled.`, fetchError);
+                    console.warn(
+                        `${this.config.widgetName}: fetch failed and beacon fallback is disabled.`,
+                        fetchError
+                    );
                 }
             }
 
@@ -237,7 +240,7 @@ const AbuEinPulse = {
                 const beaconQueued = this.sendWithBeacon(json);
                 if (beaconQueued) {
                     this.hasSubmitted = true;
-                    this.showState('success');
+                    this.showState("success");
                     return;
                 }
             }
@@ -247,11 +250,11 @@ const AbuEinPulse = {
             }
 
             this.setButtonsDisabled(false);
-            this.showState('error');
+            this.showState("error");
         } finally {
             this.isSubmitting = false;
         }
-    }
+    },
 };
 
 AbuEinPulse.init();

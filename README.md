@@ -130,6 +130,7 @@ In production, the response only includes basic service health fields.
 This project is intended primarily for local development and request inspection.
 
 For production use, consider:
+
 - stricter CORS
 - redaction of sensitive headers
 - log rotation

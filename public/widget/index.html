@@ -1,62 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AbuEin Pulse Widget</title>
-  <link rel="stylesheet" href="./abuein-pulse.css" />
-</head>
-<body>
-  <main class="pulse-wrap">
-    <section
-      id="abuein-pulse"
-      class="pulse-card"
-      aria-labelledby="pulse-question"
-      data-endpoint="/api/feedback"
-      data-attribution-endpoint="/api/track-attribution"
-      data-debug="false"
-    >
-      <div class="pulse-row">
-        <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AbuEin Pulse Widget</title>
+        <link rel="stylesheet" href="./abuein-pulse.css" />
+    </head>
+    <body>
+        <main class="pulse-wrap">
+            <section
+                id="abuein-pulse"
+                class="pulse-card"
+                aria-labelledby="pulse-question"
+                data-endpoint="/api/feedback"
+                data-attribution-endpoint="/api/track-attribution"
+                data-debug="false"
+            >
+                <div class="pulse-row">
+                    <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
 
-        <div id="pulse-buttons" class="pulse-buttons">
-          <button id="pulse-yes" class="pulse-button" type="button" aria-label="Submit yes feedback">
-            Yes
-          </button>
-          <button id="pulse-no" class="pulse-button" type="button" aria-label="Submit no feedback">
-            No
-          </button>
-        </div>
+                    <div id="pulse-buttons" class="pulse-buttons">
+                        <button
+                            id="pulse-yes"
+                            class="pulse-button"
+                            type="button"
+                            aria-label="Submit yes feedback"
+                        >
+                            Yes
+                        </button>
+                        <button
+                            id="pulse-no"
+                            class="pulse-button"
+                            type="button"
+                            aria-label="Submit no feedback"
+                        >
+                            No
+                        </button>
+                    </div>
 
-        <p id="pulse-pending" class="pulse-status pulse-status--pending" aria-live="polite" role="status">
-          Sending feedback...
-        </p>
+                    <p
+                        id="pulse-pending"
+                        class="pulse-status pulse-status--pending"
+                        aria-live="polite"
+                        role="status"
+                    >
+                        Sending feedback...
+                    </p>
 
-        <p id="pulse-thanks" class="pulse-status pulse-status--success" aria-live="polite" role="status">
-          Thanks for your feedback!
-        </p>
+                    <p
+                        id="pulse-thanks"
+                        class="pulse-status pulse-status--success"
+                        aria-live="polite"
+                        role="status"
+                    >
+                        Thanks for your feedback!
+                    </p>
 
-        <p id="pulse-error" class="pulse-status pulse-status--error" aria-live="polite" role="status">
-          We could not send your feedback right now.
-        </p>
+                    <p
+                        id="pulse-error"
+                        class="pulse-status pulse-status--error"
+                        aria-live="polite"
+                        role="status"
+                    >
+                        We could not send your feedback right now.
+                    </p>
 
-        <p id="pulse-skipped" class="pulse-status pulse-status--skipped" aria-live="polite" role="status">
-          Feedback not sent in local/static preview.
-        </p>
-      </div>
+                    <p
+                        id="pulse-skipped"
+                        class="pulse-status pulse-status--skipped"
+                        aria-live="polite"
+                        role="status"
+                    >
+                        Feedback not sent in local/static preview.
+                    </p>
+                </div>
 
-      <a
-        id="pulse-powered-by"
-        class="pulse-powered"
-        href="https://abuein.dev/"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Powered by AbuEin Pulse
-      </a>
-    </section>
-  </main>
+                <a
+                    id="pulse-powered-by"
+                    class="pulse-powered"
+                    href="https://abuein.dev/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    Powered by AbuEin Pulse
+                </a>
+            </section>
+        </main>
 
-  <script type="module" src="./abuein-pulse.js"></script>
-</body>
+        <script type="module" src="./abuein-pulse.js"></script>
+    </body>
 </html>

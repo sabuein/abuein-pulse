@@ -1,28 +1,28 @@
 {
-  "name": "abuein-pulse-logger",
-  "version": "1.0.0",
-  "description": "Small Node.js logger server for AbuEin Pulse feedback and attribution requests.",
-  "main": "./src/server.mjs",
-  "type": "module",
-  "scripts": {
-    "start": "node ./src/server.mjs",
-    "dev": "node --watch ./src/server.mjs",
-    "format": "npx prettier --write ."
-  },
-  "keywords": [
-    "nodejs",
-    "express",
-    "logging",
-    "feedback",
-    "analytics",
-    "beacon"
-  ],
-  "author": "AbuEin Technologies",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "prettier": "^3.8.3"
-  }
+    "name": "abuein-pulse-logger",
+    "version": "1.0.0",
+    "description": "Small Node.js logger server for AbuEin Pulse feedback and attribution requests.",
+    "main": "./src/server.mjs",
+    "type": "module",
+    "scripts": {
+        "start": "node ./src/server.mjs",
+        "dev": "node --watch ./src/server.mjs",
+        "format": "npx prettier --write ."
+    },
+    "keywords": [
+        "nodejs",
+        "express",
+        "logging",
+        "feedback",
+        "analytics",
+        "beacon"
+    ],
+    "author": "AbuEin Technologies",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "prettier": "^3.8.3"
+    }
 }
