@@ -117,6 +117,14 @@ This page is preconfigured for local development and points to:
 
 Use it when testing the widget from a local static server while the Node logger runs on port `3000`.
 
+### `GET /health`
+
+Returns a simple health response.
+
+In development, the response includes log file paths.
+
+In production, the response only includes basic service health fields.
+
 ## Notes
 
 This project is intended primarily for local development and request inspection.
