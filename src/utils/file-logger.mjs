@@ -1,17 +1,15 @@
-import fs from 'node:fs';
-import { LOG_DIR } from '../config.mjs';
+import fs from 'node:fs/promises';
+import { LOG_DIR, LOG_VERBOSE } from '../config.mjs';
 
-fs.mkdirSync(LOG_DIR, { recursive: true });
+await fs.mkdir(LOG_DIR, { recursive: true });
 
-export function appendLog(filePath, label, entry) {
+export async function appendLog(filePath, label, entry) {
   const line = `${JSON.stringify(entry)}\n`;
 
-  console.log(`[${label}] ${entry.receivedAt}`);
-  console.dir(entry, { depth: null, colors: true });
+  if (LOG_VERBOSE) {
+    console.log(`[${label}] ${entry.receivedAt}`);
+    console.dir(entry, { depth: null, colors: true });
+  }
 
-  fs.appendFile(filePath, line, 'utf8', err => {
-    if (err) {
-      console.error(`[${label}] Failed to write log file:`, err);
-    }
-  });
+  await fs.appendFile(filePath, line, 'utf8');
 }
