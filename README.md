@@ -41,6 +41,20 @@ The widget frontend is split into reusable parts:
 - `public/widget/abuein-pulse.js` — shared widget logic
 - `public/widget/abuein-pulse.css` — shared widget styles
 
+## Features
+
+- Accepts `POST /api/feedback`
+- Accepts `POST /api/track-attribution`
+- Writes feedback and attribution to separate log files
+- Rotates log files by date
+- Validates feedback payloads
+- Applies basic in-memory rate limiting
+- Logs structured request snapshots
+- Safelists request headers in snapshots
+- Truncates oversized logged bodies
+- Includes permissive CORS behavior for local development
+- Includes a `/health` endpoint
+
 ## Logs
 
 By default, logs are written to your home directory:
