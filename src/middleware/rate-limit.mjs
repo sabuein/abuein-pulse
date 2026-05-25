@@ -2,6 +2,8 @@
 
 const buckets = new Map();
 
+// TODO: add periodic pruning.
+
 export function createRateLimit({
     windowMs = 60_000,
     maxRequests = 30
