@@ -10,13 +10,17 @@ A small Node.js + Express server that accepts AbuEin Pulse widget requests and w
 ├── README.md
 ├── public/
 │   └── widget/
+│       ├── abuein-pulse.css
+│       ├── abuein-pulse.js
+│       ├── demo.local.html
 │       └── index.html
 └── src/
     ├── app.mjs
     ├── config.mjs
     ├── server.mjs
     ├── middleware/
-    │   └── cors.mjs
+    │   ├── cors.mjs
+    │   └── rate-limit.mjs
     ├── routes/
     │   ├── attribution.mjs
     │   ├── feedback.mjs
@@ -24,7 +28,8 @@ A small Node.js + Express server that accepts AbuEin Pulse widget requests and w
     └── utils/
         ├── file-logger.mjs
         ├── request-body.mjs
-        └── snapshot.mjs
+        ├── snapshot.mjs
+        └── validate-feedback.mjs
 ```
 
 ## Logs
