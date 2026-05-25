@@ -1,7 +1,7 @@
 {
   "name": "abuein-pulse-logger",
   "version": "1.0.0",
-  "description": "Small, focused logger app with a clean reusable/demo widget split.",
+  "description": "Small Node.js logger server for AbuEin Pulse feedback and attribution requests.",
   "main": "./src/server.mjs",
   "type": "module",
   "scripts": {
