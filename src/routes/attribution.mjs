@@ -12,7 +12,7 @@ const rateLimit = createRateLimit({ windowMs: 60_000, maxRequests: 20 });
 router.post(
   '/api/track-attribution',
   rateLimit,
-  express.text({ type: '*/*', limit: '100kb' }),
+  express.text({ type: ['text/plain', 'application/x-www-form-urlencoded'], limit: '100kb' }),
   async (req, res) => {
     try {
       const entry = buildRequestSnapshot(req, 'track-attribution');
