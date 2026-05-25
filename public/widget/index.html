@@ -287,6 +287,7 @@
         }
 
         const parentForm = this.root ? this.root.closest('form') : null;
+
         if (parentForm) {
           parentForm.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -378,9 +379,11 @@
         this.setButtonsDisabled(true);
         this.showState('pending');
 
-        console.log('hostname:', location.hostname);
-        console.log('protocol:', location.protocol);
-        console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
+        if (this.config.debug) {
+          console.log('hostname:', location.hostname);
+          console.log('protocol:', location.protocol);
+          console.log('shouldSkipTelemetry:', this.shouldSkipTelemetry());
+        }
 
         const payload = this.buildPayload(response);
         const json = JSON.stringify(payload);
