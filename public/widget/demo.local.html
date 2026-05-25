@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AbuEin Pulse Local Demo</title>
   <link rel="stylesheet" href="./abuein-pulse.css" />
 </head>
+
 <body>
   <main class="pulse-wrap">
-    <section
-      id="abuein-pulse"
-      class="pulse-card"
-      aria-labelledby="pulse-question"
+    <section id="abuein-pulse" class="pulse-card" aria-labelledby="pulse-question"
       data-endpoint="http://127.0.0.1:3000/api/feedback"
-      data-attribution-endpoint="http://127.0.0.1:3000/api/track-attribution"
-      data-debug="true"
-      data-skip-telemetry-in-local-preview="false"
-    >
+      data-attribution-endpoint="http://127.0.0.1:3000/api/track-attribution" data-debug="true"
+      data-skip-telemetry-in-local-preview="false">
       <div class="pulse-row">
         <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
 
         <div id="pulse-buttons" class="pulse-buttons">
-          <button id="pulse-yes" class="pulse-button" type="button">Yes</button>
-          <button id="pulse-no" class="pulse-button" type="button">No</button>
+          <button id="pulse-yes" class="pulse-button" type="button" aria-label="Submit yes feedback">
+            Yes
+          </button>
+
+          <button id="pulse-no" class="pulse-button" type="button" aria-label="Submit no feedback">
+            No
+          </button>
         </div>
 
         <p id="pulse-pending" class="pulse-status pulse-status--pending" aria-live="polite" role="status">
@@ -42,13 +44,8 @@
         </p>
       </div>
 
-      <a
-        id="pulse-powered-by"
-        class="pulse-powered"
-        href="https://abuein.dev/"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
+      <a id="pulse-powered-by" class="pulse-powered" href="https://abuein.dev/" rel="noopener noreferrer"
+        target="_blank">
         Powered by AbuEin Pulse
       </a>
     </section>
@@ -56,4 +53,5 @@
 
   <script type="module" src="./abuein-pulse.js"></script>
 </body>
+
 </html>
