@@ -71,6 +71,38 @@ npm start
 - `POST /api/track-attribution`
 - `GET /health`
 
+## Using the widget
+
+### Reusable widget example
+
+Open:
+
+```text
+public/widget/index.html
+```
+
+This page uses relative endpoints:
+
+- `/api/feedback`
+- `/api/track-attribution`
+
+Use it when the widget is served from the same origin as the backend.
+
+### Local demo page
+
+Open:
+
+```text
+public/widget/demo.local.html
+```
+
+This page is preconfigured for local development and points to:
+
+- `http://127.0.0.1:3000/api/feedback`
+- `http://127.0.0.1:3000/api/track-attribution`
+
+Use it when testing the widget from a local static server while the Node logger runs on port `3000`.
+
 ## Notes
 
 This project is intended primarily for local development and request inspection.
