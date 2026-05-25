@@ -1,0 +1,145 @@
+:root {
+  --pulse-bg: #f5f5f5;
+  --pulse-card-bg: #ffffff;
+  --pulse-text: #374151;
+  --pulse-muted: #6b7280;
+  --pulse-border: #d1d5db;
+  --pulse-success: #166534;
+  --pulse-error: #b91c1c;
+  --pulse-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --pulse-radius: 16px;
+  --pulse-button-radius: 9999px;
+  --pulse-max-width: 520px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+  color: var(--pulse-text);
+}
+
+.pulse-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pulse-card {
+  width: min(100%, var(--pulse-max-width));
+  background: var(--pulse-card-bg);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--pulse-radius);
+  box-shadow: var(--pulse-shadow);
+  padding: 24px;
+}
+
+.pulse-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.pulse-question {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--pulse-text);
+}
+
+.pulse-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pulse-button {
+  appearance: none;
+  border: 1px solid var(--pulse-border);
+  background: #ffffff;
+  color: var(--pulse-text);
+  border-radius: var(--pulse-button-radius);
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  min-width: 92px;
+}
+
+.pulse-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #9ca3af;
+}
+
+.pulse-button:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.pulse-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.pulse-status {
+  display: none;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.pulse-status--success {
+  color: var(--pulse-success);
+}
+
+.pulse-status--error {
+  color: var(--pulse-error);
+}
+
+.pulse-status--skipped,
+.pulse-status--pending {
+  color: var(--pulse-muted);
+}
+
+.pulse-powered {
+  display: inline-block;
+  margin-top: 14px;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.pulse-powered:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .pulse-card {
+    padding: 20px 16px;
+  }
+
+  .pulse-button,
+  .pulse-buttons {
+    width: 100%;
+  }
+}

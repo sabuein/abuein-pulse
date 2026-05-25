@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AbuEin Pulse Widget</title>
+  <title>AbuEin Pulse Local Demo</title>
   <link rel="stylesheet" href="./abuein-pulse.css" />
 </head>
 <body>
@@ -12,20 +12,17 @@
       id="abuein-pulse"
       class="pulse-card"
       aria-labelledby="pulse-question"
-      data-endpoint="/api/feedback"
-      data-attribution-endpoint="/api/track-attribution"
-      data-debug="false"
+      data-endpoint="http://127.0.0.1:3000/api/feedback"
+      data-attribution-endpoint="http://127.0.0.1:3000/api/track-attribution"
+      data-debug="true"
+      data-skip-telemetry-in-local-preview="false"
     >
       <div class="pulse-row">
         <p id="pulse-question" class="pulse-question">Was this page helpful?</p>
 
         <div id="pulse-buttons" class="pulse-buttons">
-          <button id="pulse-yes" class="pulse-button" type="button" aria-label="Submit yes feedback">
-            Yes
-          </button>
-          <button id="pulse-no" class="pulse-button" type="button" aria-label="Submit no feedback">
-            No
-          </button>
+          <button id="pulse-yes" class="pulse-button" type="button">Yes</button>
+          <button id="pulse-no" class="pulse-button" type="button">No</button>
         </div>
 
         <p id="pulse-pending" class="pulse-status pulse-status--pending" aria-live="polite" role="status">
